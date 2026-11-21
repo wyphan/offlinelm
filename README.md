@@ -5,6 +5,7 @@
 conda create -n agent python=3.14
 conda activate agent
 
+conda install pip
 python3 -m pip install google-antigravity
 python3 -m pip install litert-lm
 conda install openai
