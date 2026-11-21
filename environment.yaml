@@ -1,0 +1,10 @@
+name: agent
+channels:
+  - defaults
+dependencies:
+  - python=3.14
+  - pip
+  - openai
+  - pip:
+    - google-antigravity
+    - litert-lm
