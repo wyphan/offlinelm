@@ -17,6 +17,7 @@ conda install openai
 ```
 sudo apt update && sudo apt install -y build-essential cmake libvulkan-dev glslc spirv-headers libssl-dev
 tar xf llama.cpp-1.0.0.tar.gz
+cd llama.cpp-1.0.0
 cmake -B build -DGGML_VULKAN=ON -DLLAMA_BUILD_UI=OFF -DLLAMA_USE_PREBUILT_UI=OFF -DCMAKE_INSTALL_RPATH='$ORIGIN/../lib'
 cmake --build build --config Release --target llama-cli llama-server -j
 ```
@@ -25,6 +26,7 @@ cmake --build build --config Release --target llama-cli llama-server -j
 ```
 sudo apt update && sudo apt install -y build-essential cmake libvulkan-dev glslc spirv-headers libssl-dev
 tar xf llama.cpp-1.0.0.tar.gz
+cd llama.cpp-1.0.0
 cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=86 -DLLAMA_BUILD_UI=OFF -DLLAMA_USE_PREBUILT_UI=OFF -DCMAKE_INSTALL_RPATH='$ORIGIN/../lib'
 cmake --build build --config Release --target llama-cli llama-server -j
 ```
