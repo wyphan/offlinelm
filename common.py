@@ -98,7 +98,7 @@ def add_common_args(
     )
     parser.add_argument(
         "-d", "--device",
-        choices=["cpu", "vulkan"],
+        choices=["cpu", "vulkan", "cuda"],
         default="vulkan" if include_llamacpp_args else None,
         help="compute backend device",
     )
@@ -130,9 +130,9 @@ def add_common_args(
             help="API key for llama-server if --api-key was configured (default: local)",
         )
         parser.add_argument(
-            "--vulkan-device",
+            "--gpu-device",
             default=None,
-            help="specific Vulkan device ID (e.g. Vulkan0, Vulkan1; default: auto-select)",
+            help="specific GPU device ID for llama-server (e.g. CUDA0, Vulkan0; default: auto-select)",
         )
 
 
@@ -787,7 +787,7 @@ def start_llama_server(
     hf_repo: str | None = None,
     models_dir: str | None = None,
     device: str = "vulkan",
-    vulkan_device: str | None = None,
+    gpu_device: str | None = None,
     api_key: str | None = None,
     server_bin: str = "llama-server",
     n_gpu_layers: int | str = "all",
@@ -814,7 +814,7 @@ def start_llama_server(
     parsed = urlparse(base_url)
     host = parsed.hostname or llama_server_host_default
     port = parsed.port or int(llama_server_port_default)
-    effective_ngl = str(n_gpu_layers) if device == "vulkan" else "0"
+    effective_ngl = str(n_gpu_layers) if device in ("vulkan", "cuda") else "0"
 
     cmd: list[str] = [
         resolved_bin,
@@ -833,8 +833,8 @@ def start_llama_server(
     ]
     if device == "cpu":
         cmd.extend(["-dev", "none"])
-    elif vulkan_device:
-        cmd.extend(["-dev", vulkan_device])
+    elif gpu_device:
+        cmd.extend(["-dev", gpu_device])
     if offline:
         cmd.append("--offline")
     if not enable_vision:

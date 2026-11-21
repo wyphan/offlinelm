@@ -75,7 +75,7 @@ def main() -> None:
         model_path=model_path,
         model_alias=args.name,
         device=args.device,
-        vulkan_device=args.vulkan_device,
+        gpu_device=args.gpu_device,
     ):
         asyncio.run(common.run_agent_session(config, prompt, chat_mode=args.chat))
 

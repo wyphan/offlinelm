@@ -79,7 +79,7 @@ def main() -> None:
         model_path=model_path,
         model_alias=args.name,
         device=args.device,
-        vulkan_device=args.vulkan_device,
+        gpu_device=args.gpu_device,
     )
 
     mcp.run()
